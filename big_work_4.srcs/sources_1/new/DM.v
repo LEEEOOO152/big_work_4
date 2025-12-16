@@ -1,6 +1,6 @@
 // data memory
 module DM (
-    input [31:0] addr,// from ALU
+    input [11:2] addr,// from ALU###### why [11:2]?
     input [31:0] W_data,// from GPR R_data_2
     input mem_write,
 

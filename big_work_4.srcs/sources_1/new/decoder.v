@@ -18,20 +18,20 @@ module decoder (
 
     // NPC control
     assign s_npc = (op == 6'b000100) ? 2'b00 : // beq
-                   (op == 6'b000011) ? 2'b01 : // jal
-                     2'b11; // normal,先不管abs_addr
+                   (op == 6'b000011) ? 2'b10 : // jal
+                     2'b11; // normal,先不管reg_addr
 
     // GPR control
     assign reg_write = (op == 6'b000011) ? 1'b1 : // jal , write pc + 4 to GPR
                        (op == 6'b000100) ? 1'b0 : // beq no write
                        (op == 6'b101011) ? 1'b0 : // sw no write
                        (op == 6'b100011) ? 1'b1 : // lw write
-                        (op == 6'b000000) ? 1'b1 : // R-type write
+                        (op == 6'b000000) ? 1'b1 : // addu, subu write
                          1'b0; // default no write
 
     // s_sum_write
     assign s_num_write = (op == 6'b000000) ? 2'b01 : // addu,subu
-                        (op == 6'b001101) ? 2'b00 : // ori , result saved to rd
+                        (op == 6'b001101) ? 2'b00 : // ori , write to rt
                          (op == 6'b000011) ? 2'b10 :// jal , write to gpr[31]
                          2'bzz; // illegal
 

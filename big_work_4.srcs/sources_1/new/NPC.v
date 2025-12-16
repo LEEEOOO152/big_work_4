@@ -12,8 +12,8 @@ module NPC(
     always @(*) begin
         case (s_npc)
             2'b00: case (zero) // jump if equal
-                0: npc = pc + 4; // equal
-                1: npc = pc + 4 + {{14{offs_16[15]}}, offs_16, 2'b00}; // not equal
+                0: npc = pc + 4; // not equal
+                1: npc = pc + 4 + {{14{offs_16[15]}}, offs_16, 2'b00}; // equal
             endcase
 
             2'b01: npc = reg_addr; // Register jump########

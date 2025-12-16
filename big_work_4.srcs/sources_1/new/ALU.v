@@ -2,8 +2,8 @@ module ALU (
     input [1:0] alu_op,
     input [31:0] data_1, //rj,from GPR 
     input [31:0] data_2, //rk,from GPR 
-    input [11:0] uint_12, // zero-extend
-    input [11:0] int_12, // sign-extend
+    input [15:0] uint_16, // zero-extend
+    input [15:0] int_16, // sign-extend
 
     input s_b,
 
@@ -11,8 +11,8 @@ module ALU (
     output zero
 );
     reg [31:0] cal_1; // operand 1,rj
-    reg [31:0] cal_2; // operand 2,rk or zero-extend uint_12 to OR
-    reg [31:0] cal_3; // sign-extend int_12 to address calculation
+    reg [31:0] cal_2; // operand 2,rk or zero-extend uint_16 to OR
+    reg [31:0] cal_3; // sign-extend int_16 to address calculation
 
     always @(*) begin
         cal_1 = data_1; 
@@ -22,8 +22,8 @@ module ALU (
         case (s_b)
             0: cal_2 = data_2;
             1: begin 
-                cal_2 = {{20{1'b0}}, uint_12}; // zero-extend 
-                cal_3 = {{20{int_12[11]}}, int_12}; // sign-extend
+                cal_2 = {{16{1'b0}}, uint_16}; // zero-extend 
+                cal_3 = {{16{int_16[15]}}, int_16}; // sign-extend
             end
 
         endcase

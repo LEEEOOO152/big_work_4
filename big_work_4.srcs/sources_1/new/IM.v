@@ -1,5 +1,5 @@
 module IM (
-    input [31:0] addr, 
+    input [11:2] addr, //###### why [11:2]?
 
     output [31:0] instr
 );
