@@ -31,13 +31,13 @@ module ALU (
 
     always @(*) begin
         case (alu_op)
-            2'b00: result = cal_1 + cal_2; // add
-            2'b01: result = cal_1 - cal_2; // sub
-            2'b10: result = cal_1 | cal_2; // or
-            2'b11: result = cal_1 + cal_3; // calculate value address
+            2'b00: result = cal_1 + cal_2; // addu
+            2'b01: result = cal_1 - cal_2; // subu
+            2'b10: result = cal_1 | cal_2; // ori
+            2'b11: result = cal_1 + cal_3; // calculate lw,sw  addr
             default: result = 32'hzzzz_zzzz;
         endcase
     end
 
-    assign zero = (result == 32'b0) ? 1'b1 : 1'b0;
+    assign zero = (result == 32'b0) ? 1'b1 : 1'b0; // equal then set 1
 endmodule

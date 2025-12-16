@@ -1,5 +1,5 @@
 // the last MUX_3
-module MUX_3 (
+module MUX_3_data (
     input [1:0] s_data_write,
     input [31:0] pc_plus_4,
     input [31:0] alu_result,

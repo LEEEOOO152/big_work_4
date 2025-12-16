@@ -8,15 +8,16 @@ module NPC(
 
     output reg [31:0] npc // next pc
     );
+
     always @(*) begin
         case (s_npc)
             2'b00: case (zero) // jump if equal
-                0: npc = pc + 4; // not equal
-                1: npc = pc + {{14{offs_16[15]}}, offs_16, 2'b00}; // equal
+                0: npc = pc + 4; // equal
+                1: npc = pc + 4 + {{14{offs_16[15]}}, offs_16, 2'b00}; // not equal
             endcase
 
             2'b01: npc = reg_addr; // Register jump########
-            2'b10: npc = pc + {{4{offs_26[25]}}, offs_26, 2'b00}; // jump b,无条件
+            2'b10: npc = {pc[31:28], {{4{offs_26[25]}}, offs_26, 2'b00}}; // jal
             2'b11: npc = pc + 4; // normal
             
         endcase
