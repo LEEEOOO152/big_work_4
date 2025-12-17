@@ -17,7 +17,7 @@ module NPC(
             endcase
 
             2'b01: npc = reg_addr; // Register jump########
-            2'b10: npc = {pc[31:28], {{4{offs_26[25]}}, offs_26, 2'b00}}; // jal
+            2'b10: npc = {pc[31:28], offs_26, 2'b00}; // jal
             2'b11: npc = pc + 4; // normal
             
         endcase

@@ -1,5 +1,6 @@
 // data memory
 module DM (
+    input clk,
     input [11:2] addr,// from ALU###### why [11:2]?
     input [31:0] W_data,// from GPR R_data_2
     input mem_write,
@@ -12,9 +13,9 @@ module DM (
     assign R_data = RAM[addr[11:2]]; // word aligned
 
     // write##########
-    always @(*) begin
+    always @(posedge clk) begin
         if (mem_write) begin
-            RAM[addr[11:2]] = W_data; // word aligned
+            RAM[addr[11:2]] <= W_data; // word aligned
         end
     end
 endmodule

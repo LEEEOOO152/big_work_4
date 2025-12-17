@@ -6,7 +6,7 @@ module IM (
 
     reg [31:0]RAM[1023:0];// 4KB instruction memory
 
-    initial $readmemh("code.txt", RAM); // load instructions from code.txt
+   // initial $readmemh("code.txt", RAM); // load instructions from code.txt
 
 // #### question ####
     assign instr = RAM[addr[11:2]]; // word aligned

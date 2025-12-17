@@ -1,5 +1,6 @@
 // general purpose register 
 module GPR (
+    input clk,
     input reg_write,
     input [4:0] R_addr_1,
     input [4:0] R_addr_2,
@@ -16,9 +17,9 @@ module GPR (
     assign R_data_2 = RAM[R_addr_2];
 
     // write
-    always @(*) begin
+    always @(posedge clk) begin
         if (reg_write && (W_addr != 0)) begin // register 0 is always 0
-            RAM[W_addr] = W_data;
+            RAM[W_addr] <= W_data;
         end
     end
 
