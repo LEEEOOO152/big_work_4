@@ -26,17 +26,18 @@ module decoder (
                        (op == 6'b000100) ? 1'b0 : // beq no write
                        (op == 6'b101011) ? 1'b0 : // sw no write
                        (op == 6'b100011) ? 1'b1 : // lw write
-                        (op == 6'b000000) ? 1'b1 : // addu, subu write
+                       (op == 6'b000000) ? 1'b1 : // addu, subu write
+                       (op == 6'b001101) ? 1'b1 : // ori , write to rt
                          1'b0; // default no write
 
     // s_sum_write
     assign s_num_write = (op == 6'b000000) ? 2'b01 : // addu,subu
-                        (op == 6'b001101) ? 2'b00 : // ori , write to rt
+                        (op == 6'b001101 || op == 6'b100011) ? 2'b00 : // ori, lw , write to rt
                          (op == 6'b000011) ? 2'b10 :// jal , write to gpr[31]
                          2'bzz; // illegal
 
     // s_b
-    assign s_b = (op == 6'b101011 || op == 6'b100011) ? 1'b1 :  // sw,lw ,ALU 接收来自extended imm
+    assign s_b = (op == 6'b101011 || op == 6'b100011 || op == 6'b001101) ? 1'b1 :  // sw,lw,ori ,ALU 接收来自extended imm
                     1'b0;      // 正常就读取gpr的data_2
     // alu_op
     assign alu_op = (op == 6'b000000 && func == 6'b100001) ? 2'b00 : // addu
