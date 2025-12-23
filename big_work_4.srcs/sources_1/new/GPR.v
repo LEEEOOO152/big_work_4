@@ -1,6 +1,7 @@
 // general purpose register 
 module GPR (
     input clk,
+    input rst,
     input reg_write,
     input [4:0] R_addr_1,
     input [4:0] R_addr_2,
@@ -25,8 +26,8 @@ module GPR (
 
     // ######## initialize registers to 0
     integer i;
-    initial begin
-        for (i = 0; i < 32; i = i + 1) begin
+    always @(posedge rst) begin
+        for(i = 0; i < 32; i = i + 1) begin
             RAM[i] = 32'b0;
         end
     end
