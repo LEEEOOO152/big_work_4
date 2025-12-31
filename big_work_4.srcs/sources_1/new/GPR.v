@@ -18,17 +18,15 @@ module GPR (
     assign R_data_2 = RAM[R_addr_2];
 
     // write
-    always @(posedge clk) begin
+    integer i;
+    always @(posedge clk or posedge rst) begin
         if (reg_write && (W_addr != 0)) begin // register 0 is always 0
             RAM[W_addr] <= W_data;
         end
-    end
-
-    // ######## initialize registers to 0
-    integer i;
-    always @(posedge rst) begin
-        for(i = 0; i < 32; i = i + 1) begin
-            RAM[i] = 32'b0;
+        else if (rst) begin
+            for(i = 0; i < 32; i = i + 1) begin
+                RAM[i] <= 32'b0;
+            end
         end
     end
     

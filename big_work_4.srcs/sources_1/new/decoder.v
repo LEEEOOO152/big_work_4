@@ -99,6 +99,10 @@ module decoder (
                 mem_write = 1'b0;
                 s_data_write = 2'b00;
             end
+
+            default: begin
+                // nothing to do
+            end
         endcase
     end
 endmodule

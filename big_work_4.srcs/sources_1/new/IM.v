@@ -4,7 +4,7 @@ module IM (
     output [31:0] instr
 );
 
-    reg [31:0]RAM[1023:0];// 4KB instruction memory
+    reg [31:0]RAM[63:0];// 4KB instruction memory
 
    // initial $readmemh("code.txt", RAM); // load instructions from code.txt
 

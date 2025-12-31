@@ -7,7 +7,7 @@ module DM (
 
     output [31:0] R_data // to MUX_3 the last one
 );
-    reg [31:0] RAM[1023:0]; // 4KB data memory
+    reg [31:0] RAM[63:0]; // 4KB data memory
 
     // read########
     assign R_data = RAM[addr[11:2]]; // word aligned

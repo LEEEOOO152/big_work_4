@@ -3,46 +3,46 @@ module mips(
     input rst
     );
     
-    // decoder wires
-    wire [31:0] full_instr;
-    wire [1:0] s_npc;
-    wire reg_write;
-    wire [1:0] s_num_write;
-    wire s_b;
-    wire [1:0] alu_op;
-    wire mem_write;
-    wire [1:0] s_data_write;
+    // decoder wires 
+    (* DONT_TOUCH = "TRUE" *) wire [1:0] s_npc;
+    (* DONT_TOUCH = "TRUE" *) wire [31:0] full_instr;
+    (* DONT_TOUCH = "TRUE" *) wire reg_write;
+    (* DONT_TOUCH = "TRUE" *) wire [1:0] s_num_write;
+    (* DONT_TOUCH = "TRUE" *) wire s_b;
+    (* DONT_TOUCH = "TRUE" *) wire [1:0] alu_op;
+    (* DONT_TOUCH = "TRUE" *) wire mem_write;
+    (* DONT_TOUCH = "TRUE" *) wire [1:0] s_data_write;
     // NPC wires
-    wire zero;
-    wire [31:0] pc;
-    wire [31:0] npc;
+    (* DONT_TOUCH = "TRUE" *) wire zero;
+    (* DONT_TOUCH = "TRUE" *) wire [31:0] pc;
+    (* DONT_TOUCH = "TRUE" *) wire [31:0] npc;
     // PC wires (all done)
     // GPR wires
-    wire [4:0] W_addr;
-    wire [31:0] W_data ;
-    wire [31:0] R_data_1;
-    wire [31:0] R_data_2;
+    (* DONT_TOUCH = "TRUE" *)wire [4:0] W_addr;
+    (* DONT_TOUCH = "TRUE" *)wire [31:0] W_data ;
+    (* DONT_TOUCH = "TRUE" *)wire [31:0] R_data_1;
+    (* DONT_TOUCH = "TRUE" *)wire [31:0] R_data_2;
     // ALU wires
-    wire [31:0] data_1 = R_data_1;// from GPR
-    wire [31:0] data_2 = R_data_2;// from GPR
-    wire [31:0] result;
+    (* DONT_TOUCH = "TRUE" *)wire [31:0] data_1 = R_data_1;// from GPR
+    (* DONT_TOUCH = "TRUE" *)wire [31:0] data_2 = R_data_2;// from GPR
+    (* DONT_TOUCH = "TRUE" *)wire [31:0] result;
     // DM wires
-    wire [11:2] addr_dm = result[11:2];
-    wire [31:0] W_data_dm = R_data_2;
-    wire [31:0] R_data_dm;
+    (* DONT_TOUCH = "TRUE" *)wire [11:2] addr_dm = result[11:2];
+    (* DONT_TOUCH = "TRUE" *)wire [31:0] W_data_dm = R_data_2;
+    (* DONT_TOUCH = "TRUE" *)wire [31:0] R_data_dm;
     // IM wires
-    wire [11:2] addr_im = pc[11:2];
+    (* DONT_TOUCH = "TRUE" *)wire [11:2] addr_im = pc[11:2];
     // MUX_3_data wires
-    wire [31:0] pc_plus_4 = pc + 4;
-    wire [31:0] alu_result = result;
-    wire [31:0] write_to_GPR;
+    (* DONT_TOUCH = "TRUE" *) wire [31:0] pc_plus_4 = pc + 4;
+    (* DONT_TOUCH = "TRUE" *) wire [31:0] alu_result = result;
+    (* DONT_TOUCH = "TRUE" *) wire [31:0] write_to_GPR;
     assign W_data = write_to_GPR;
     
-    wire [4:0] ins_20_16 = full_instr[20:16];
-    wire [4:0] ins_25_21 = full_instr[25:21];
-    wire [4:0] ins_15_11 = full_instr[15:11];
-    wire [15:0] ins_15_0 = full_instr[15:0];
-    wire [25:0] ins_25_0 = full_instr[25:0];
+    (* DONT_TOUCH = "TRUE" *) wire [4:0] ins_20_16 = full_instr[20:16];
+    (* DONT_TOUCH = "TRUE" *) wire [4:0] ins_25_21 = full_instr[25:21];
+    (* DONT_TOUCH = "TRUE" *) wire [4:0] ins_15_11 = full_instr[15:11];
+    (* DONT_TOUCH = "TRUE" *) wire [15:0] ins_15_0 = full_instr[15:0];
+    (* DONT_TOUCH = "TRUE" *) wire [25:0] ins_25_0 = full_instr[25:0];
 
     
 
@@ -56,4 +56,5 @@ module mips(
     DM dm_inst(.clk(clk), .addr(addr_dm), .W_data(W_data_dm), .mem_write(mem_write), .R_data(R_data_dm));
     MUX_3_data mux_3_data_inst(.s_data_write(s_data_write), .pc_plus_4(pc_plus_4), .alu_result(alu_result), .data_from_DM(R_data_dm), .write_to_GPR(write_to_GPR));
     MUX_3_num mux_3_num_inst(.s_num_write(s_num_write), .rt(ins_20_16), .rd(ins_15_11), .write_to_GPR(W_addr));
+
 endmodule
