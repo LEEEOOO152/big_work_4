@@ -85,7 +85,7 @@ module decoder (
                 reg_write = 1'b0;
                 s_num_write = 2'bzz;
                 s_b = 1'b0;
-                alu_op = 2'bzz;
+                alu_op = 2'b01;//for 0 signal
                 mem_write = 1'b0;
                 s_data_write = 2'b01;
             end
